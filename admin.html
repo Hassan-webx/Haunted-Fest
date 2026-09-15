@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | Haunted Fest</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================
+         ADMIN NAVBAR
+    ================================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🎃 HAUNTED FEST
+        </div>
+
+        <nav>
+
+            <a href="index.html">
+                View Website
+            </a>
+
+        </nav>
+
+        <button
+            class="nav-btn"
+            id="logoutBtn"
+            type="button"
+        >
+            Logout
+        </button>
+
+    </header>
+
+
+
+    <!-- ================================
+         ADMIN DASHBOARD
+    ================================= -->
+
+    <main class="admin-page">
+
+
+        <!-- ================================
+             ADMIN HEADER
+        ================================= -->
+
+        <div class="admin-header">
+
+            <div>
+
+                <p class="section-label">
+                    HAUNTED FEST — ADMIN
+                </p>
+
+                <h1>
+                    EVENT <span>DASHBOARD</span>
+                </h1>
+
+                <p>
+                    Manage bookings, payments and event attendance.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================
+             STATISTICS
+        ================================= -->
+
+        <section class="admin-stats">
+
+
+            <div class="admin-stat-card">
+
+                <span>
+                    TOTAL BOOKINGS
+                </span>
+
+                <strong id="totalBookings">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <span>
+                    EARLY BIRD SOLD
+                </span>
+
+                <strong id="earlyBirdSold">
+                    0 / 50
+                </strong>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <span>
+                    REGULAR SOLD
+                </span>
+
+                <strong id="regularSold">
+                    0 / 50
+                </strong>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <span>
+                    TOTAL REVENUE
+                </span>
+
+                <strong id="totalRevenue">
+                    KSh 0
+                </strong>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <span>
+                    TICKETS CHECKED IN
+                </span>
+
+                <strong id="checkedInTickets">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <span>
+                    GATE TICKETS SOLD
+                </span>
+
+                <strong id="gateTicketsSold">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <span>
+                    GATE REVENUE
+                </span>
+
+                <strong id="gateRevenue">
+                    KSh 0
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================
+             BOOKING MANAGEMENT
+        ================================= -->
+
+        <section class="admin-bookings">
+
+
+            <div class="admin-section-header">
+
+                <div>
+
+                    <p class="section-label">
+                        BOOKING MANAGEMENT
+                    </p>
+
+                    <h2>
+                        CUSTOMER <span>BOOKINGS</span>
+                    </h2>
+
+                </div>
+
+
+                <input
+                    type="text"
+                    id="searchBookings"
+                    placeholder="Search name, phone or booking number..."
+                >
+
+            </div>
+
+
+
+            <!-- BOOKINGS TABLE -->
+
+            <div class="admin-table-wrapper">
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Booking
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Ticket
+                            </th>
+
+                            <th>
+                                Qty
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                            <th>
+                                M-Pesa Code
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="bookingsTable">
+
+                        <!-- JavaScript will insert bookings here -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================
+             EVENT DAY CHECK-IN
+        ================================= -->
+
+        <section class="admin-checkin">
+
+            <p class="section-label">
+                EVENT DAY
+            </p>
+
+            <h2>
+                ATTENDEE <span>CHECK-IN</span>
+            </h2>
+
+            <p>
+                Search using the booking number, phone number or
+                customer's name.
+            </p>
+
+
+            <div class="checkin-box">
+
+                <input
+                    type="text"
+                    id="checkinSearch"
+                    placeholder="Booking number, phone or name"
+                >
+
+                <button
+                    type="button"
+                    class="booking-submit"
+                    id="checkinBtn"
+                >
+                    CHECK IN
+                </button>
+
+            </div>
+
+
+            <!-- CHECK-IN RESULT -->
+
+            <div
+                id="checkinResult"
+                class="checkin-result"
+            >
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================
+             GATE TICKET SALES
+        ================================= -->
+
+        <section class="admin-gate-sales">
+
+            <p class="section-label">
+                EVENT DAY
+            </p>
+
+            <h2>
+                GATE <span>TICKET SALES</span>
+            </h2>
+
+            <p>
+                Record tickets sold at the event gate.
+                Gate ticket price: KSh 1,000 per ticket.
+            </p>
+
+
+            <form id="gateSaleForm">
+
+
+                <div class="gate-sale-grid">
+
+
+                    <!-- CUSTOMER NAME -->
+
+                    <div class="form-group">
+
+                        <label for="gateCustomerName">
+                            CUSTOMER NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            id="gateCustomerName"
+                            placeholder="Enter customer name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- CUSTOMER PHONE -->
+
+                    <div class="form-group">
+
+                        <label for="gateCustomerPhone">
+                            PHONE NUMBER
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="gateCustomerPhone"
+                            placeholder="Enter phone number"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- TICKET QUANTITY -->
+
+                    <div class="form-group">
+
+                        <label for="gateQuantity">
+                            NUMBER OF TICKETS
+                        </label>
+
+                        <input
+                            type="number"
+                            id="gateQuantity"
+                            min="1"
+                            value="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PAYMENT METHOD -->
+
+                    <div class="form-group">
+
+                        <label for="gatePaymentMethod">
+                            PAYMENT METHOD
+                        </label>
+
+                        <select
+                            id="gatePaymentMethod"
+                            required
+                        >
+
+                            <option value="">
+                                Select payment method
+                            </option>
+
+                            <option value="M-Pesa">
+                                M-Pesa
+                            </option>
+
+                            <option value="Cash">
+                                Cash
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- TOTAL AMOUNT -->
+
+                <div class="gate-sale-total">
+
+                    <span>
+                        TOTAL AMOUNT
+                    </span>
+
+                    <strong id="gateSaleTotal">
+                        KSh 1,000
+                    </strong>
+
+                </div>
+
+
+
+                <!-- RECORD SALE -->
+
+                <button
+                    type="submit"
+                    class="booking-submit"
+                >
+                    🎟️ RECORD GATE SALE
+                </button>
+
+
+            </form>
+
+        </section>
+
+
+
+        <!-- ================================
+             SALES REPORT
+        ================================= -->
+
+        <section class="admin-report">
+
+
+            <div class="admin-section-header">
+
+                <div>
+
+                    <p class="section-label">
+                        EVENT SALES
+                    </p>
+
+                    <h2>
+                        SALES <span>REPORT.</span>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="admin-stats report-stats">
+
+
+                <!-- ONLINE TICKETS -->
+
+                <div class="admin-stat-card">
+
+                    <span>
+                        ONLINE TICKETS SOLD
+                    </span>
+
+                    <strong id="reportOnlineTickets">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <!-- ONLINE REVENUE -->
+
+                <div class="admin-stat-card">
+
+                    <span>
+                        ONLINE REVENUE
+                    </span>
+
+                    <strong id="reportOnlineRevenue">
+                        KSh 0
+                    </strong>
+
+                </div>
+
+
+                <!-- GATE TICKETS -->
+
+                <div class="admin-stat-card">
+
+                    <span>
+                        GATE TICKETS SOLD
+                    </span>
+
+                    <strong id="reportGateTickets">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <!-- GATE REVENUE -->
+
+                <div class="admin-stat-card">
+
+                    <span>
+                        GATE REVENUE
+                    </span>
+
+                    <strong id="reportGateRevenue">
+                        KSh 0
+                    </strong>
+
+                </div>
+
+
+                <!-- TOTAL TICKETS -->
+
+                <div class="admin-stat-card">
+
+                    <span>
+                        TOTAL TICKETS SOLD
+                    </span>
+
+                    <strong id="reportTotalTickets">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <!-- TOTAL REVENUE -->
+
+                <div class="admin-stat-card">
+
+                    <span>
+                        TOTAL REVENUE
+                    </span>
+
+                    <strong id="reportTotalRevenue">
+                        KSh 0
+                    </strong>
+
+                </div>
+
+
+                <!-- CHECKED IN -->
+
+                <div class="admin-stat-card">
+
+                    <span>
+                        CHECKED-IN TICKETS
+                    </span>
+
+                    <strong id="reportCheckedIn">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <!-- REMAINING EARLY BIRD -->
+
+                <div class="admin-stat-card">
+
+                    <span>
+                        REMAINING EARLY BIRD
+                    </span>
+
+                    <strong id="reportEarlyRemaining">
+                        50
+                    </strong>
+
+                </div>
+
+
+                <!-- REMAINING REGULAR -->
+
+                <div class="admin-stat-card">
+
+                    <span>
+                        REMAINING REGULAR
+                    </span>
+
+                    <strong id="reportRegularRemaining">
+                        50
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================================
+         FOOTER
+    ================================= -->
+
+    <footer>
+
+        <h3>
+            🎃 HAUNTED FEST
+        </h3>
+
+        <p>
+            Halloween Edition • 31st October •
+            Royal Garden, Kikambala
+        </p>
+
+        <p class="copyright">
+            © 2026 Haunted Fest. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+
+    <!-- ADMIN JAVASCRIPT -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/admin.js"></script>  
+
+
+</body>
+
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Your Ticket | Haunted Fest</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+
+        <div class="logo">
+            🎃 HAUNTED FEST
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tickets">Tickets</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#venue">Venue</a>
+        </nav>
+
+        <a href="index.html" class="nav-btn">
+            Back Home
+        </a>
+
+    </header>
+
+
+    <!-- BOOKING SECTION -->
+    <main class="booking-page">
+
+        <div class="booking-header">
+
+            <p class="section-label">
+                🎃 HAUNTED FEST — HALLOWEEN EDITION
+            </p>
+
+            <h1>
+                BOOK YOUR <span>TICKET</span>
+            </h1>
+
+            <p>
+                Secure your spot at the biggest Halloween experience.
+            </p>
+
+        </div>
+
+
+        <div class="booking-container">
+
+
+            <!-- BOOKING FORM -->
+            <div class="booking-form-box">
+
+                <h2>YOUR DETAILS</h2>
+
+                <form id="bookingForm">
+
+
+                    <!-- FULL NAME -->
+                    <div class="form-group">
+
+                        <label for="fullName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PHONE -->
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="e.g. 0712345678"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                            <span>(Optional)</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="example@email.com"
+                        >
+
+                    </div>
+
+
+                    <!-- TICKET TYPE -->
+                    <div class="form-group">
+
+                        <label for="ticketType">
+                            Ticket Type
+                        </label>
+
+                        <select id="ticketType" required>
+
+                            <option value="">
+                                Select a ticket
+                            </option>
+
+                            <option value="early-bird">
+                                Early Bird — KSh 500
+                            </option>
+
+                            <option value="regular">
+                                Regular — KSh 750
+                            </option>
+
+                            <option value="gate">Gate — KSh 1,000 (Event Day)</option>
+                            
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- QUANTITY -->
+                    <div class="form-group">
+
+                        <label for="quantity">
+                            Number of Tickets
+                        </label>
+
+                        <input
+                            type="number"
+                            id="quantity"
+                            min="1"
+                            value="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PAYMENT INSTRUCTIONS -->
+                    <div class="payment-instructions">
+
+                        <p class="payment-title">
+                            💰 M-PESA PAYMENT
+                        </p>
+
+                        <p>
+                            Pay the total amount to:
+                        </p>
+
+                        <div class="booking-till">
+                            Till Number: <strong>1690917</strong>
+                        </div>
+
+                        <p class="payment-small">
+                            After making payment, enter your M-Pesa
+                            transaction code below.
+                        </p>
+
+                    </div>
+
+
+                    <!-- TRANSACTION CODE -->
+                    <div class="form-group">
+
+                        <label for="transactionCode">
+                            M-Pesa Transaction Code
+                        </label>
+
+                        <input
+                            type="text"
+                            id="transactionCode"
+                            placeholder="e.g. QKL7H8XYZ1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- TOTAL -->
+                    <div class="total-box">
+
+                        <span>
+                            TOTAL TO PAY
+                        </span>
+
+                        <strong id="totalAmount">
+                            KSh 0
+                        </strong>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+                    <button
+                        type="submit"
+                        class="booking-submit"
+                    >
+                        🎟️ SUBMIT BOOKING
+                    </button>
+
+
+                    <p class="booking-note">
+                        Your booking will remain pending until
+                        payment is verified by the event organizer.
+                    </p>
+
+                </form>
+
+            </div>
+
+
+            <!-- EVENT SUMMARY -->
+            <aside class="event-summary">
+
+                <p class="section-label">
+                    EVENT DETAILS
+                </p>
+
+                <h2>
+                    HAUNTED<br>
+                    <span>FEST</span>
+                </h2>
+
+                <div class="summary-line">
+                    <strong>📅 DATE</strong>
+                    <p>31st October</p>
+                </div>
+
+                <div class="summary-line">
+                    <strong>📍 VENUE</strong>
+                    <p>Royal Garden, Kikambala</p>
+                </div>
+
+                <div class="summary-line">
+                    <strong>🎃 EVENT</strong>
+                    <p>Halloween Edition</p>
+                </div>
+
+
+                <div class="summary-divider"></div>
+
+
+                <h3>
+                    TICKET PRICES
+                </h3>
+
+                <div class="summary-ticket">
+                    <span>Early Bird</span>
+                    <strong>KSh 500</strong>
+                </div>
+
+                <div class="summary-ticket">
+                    <span>Regular</span>
+                    <strong>KSh 750</strong>
+                </div>
+
+                <div class="summary-ticket">
+                    <span>Gate</span>
+                    <strong>KSh 1,000</strong>
+                </div>
+
+
+                <div class="summary-warning">
+                    ⚠️ Early Bird and Regular tickets
+                    are limited.
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <h3>🎃 HAUNTED FEST</h3>
+
+        <p>
+            Halloween Edition • 31st October •
+            Royal Garden, Kikambala
+        </p>
+
+        <p class="copyright">
+            © 2026 Haunted Fest. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/booking.js"></script>
+  
+
+</body>
+</html>

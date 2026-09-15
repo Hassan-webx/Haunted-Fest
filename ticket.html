@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Your Ticket | Haunted Fest</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+
+    <!-- ================================
+         NAVBAR
+    ================================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🎃 HAUNTED FEST
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tickets">Tickets</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#venue">Venue</a>
+        </nav>
+
+        <a href="index.html" class="nav-btn">
+            Back Home
+        </a>
+
+    </header>
+
+
+
+    <!-- ================================
+         TICKET PAGE
+    ================================= -->
+
+    <main class="ticket-page">
+
+
+        <!-- TICKET HEADER -->
+
+        <div class="ticket-header">
+
+            <p class="section-label">
+                🎃 HAUNTED FEST — HALLOWEEN EDITION
+            </p>
+
+            <h1>
+                BOOKING <span>RECEIVED</span>
+            </h1>
+
+            <p>
+                Your booking has been submitted successfully.
+            </p>
+
+        </div>
+
+
+
+        <!-- TICKET CARD -->
+
+        <div class="ticket-card">
+
+
+            <!-- TICKET TOP -->
+
+            <div class="ticket-top">
+
+                <div>
+
+                    <p class="section-label">
+                        EVENT TICKET
+                    </p>
+
+                    <h2>
+                        HAUNTED <span>FEST</span>
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="ticket-status"
+                    id="ticketStatus">
+
+                    PENDING
+
+                </div>
+
+            </div>
+
+
+
+            <div class="ticket-divider"></div>
+
+
+
+            <!-- TICKET DETAILS -->
+
+            <div class="ticket-details">
+
+                <div class="ticket-detail">
+
+                    <span>
+                        BOOKING NUMBER
+                    </span>
+
+                    <strong id="bookingNumber">
+                        ---
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-detail">
+
+                    <span>
+                        FULL NAME
+                    </span>
+
+                    <strong id="customerName">
+                        ---
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-detail">
+
+                    <span>
+                        PHONE
+                    </span>
+
+                    <strong id="customerPhone">
+                        ---
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-detail">
+
+                    <span>
+                        TICKET TYPE
+                    </span>
+
+                    <strong id="ticketType">
+                        ---
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-detail">
+
+                    <span>
+                        QUANTITY
+                    </span>
+
+                    <strong id="ticketQuantity">
+                        ---
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-detail">
+
+                    <span>
+                        AMOUNT
+                    </span>
+
+                    <strong id="ticketAmount">
+                        ---
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-detail">
+
+                    <span>
+                        M-PESA CODE
+                    </span>
+
+                    <strong id="transactionCode">
+                        ---
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 EVENT INFORMATION
+            ================================= -->
+
+            <div class="ticket-event-info">
+
+                <div>
+
+                    <span>
+                        DATE
+                    </span>
+
+                    <strong>
+                        31st October
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        VENUE
+                    </span>
+
+                    <strong>
+                        Royal Garden, Kikambala
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 QR CODE
+            ================================= -->
+
+            <div
+                class="ticket-qr-section"
+                id="qrSection">
+
+                <p class="section-label">
+                    ENTRY QR CODE
+                </p>
+
+                <div
+                    id="qrcode"
+                    class="ticket-qr">
+                </div>
+
+                <p class="qr-instruction">
+                    Present this QR code at the event entrance
+                    after your payment has been confirmed.
+                </p>
+
+            </div>
+
+
+
+            <!-- ================================
+                 PAYMENT NOTICE
+            ================================= -->
+
+            <div
+                class="ticket-notice"
+                id="ticketNotice">
+
+                <strong>
+                    ⚠️ PAYMENT VERIFICATION
+                </strong>
+
+                <p>
+                    Your booking is currently pending payment
+                    verification by the event organizer.
+                    This is not yet a confirmed entry ticket.
+                </p>
+
+            </div>
+
+
+
+            <!-- ================================
+                 ACTIONS
+            ================================= -->
+
+            <div class="ticket-actions">
+
+                <button
+                    onclick="window.print()"
+                    class="booking-submit">
+
+                    🖨️ PRINT TICKET
+
+                </button>
+
+
+                <a
+                    href="index.html"
+                    class="main-btn">
+
+                    BACK TO HOME
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================================
+         FOOTER
+    ================================= -->
+
+    <footer>
+
+        <h3>
+            🎃 HAUNTED FEST
+        </h3>
+
+        <p>
+            Halloween Edition • 31st October •
+            Royal Garden, Kikambala
+        </p>
+
+        <p class="copyright">
+            © 2026 Haunted Fest. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+
+    <!-- ================================
+         QR CODE LIBRARY
+    ================================= -->
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+    </script>
+
+
+    <!-- TICKET JAVASCRIPT -->
+
+    <script src="js/ticket.js"></script>
+
+
+</body>
+</html>
