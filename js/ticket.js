@@ -3,7 +3,7 @@
 // ================================
 
 
-// Get the latest booking
+// Get the latest booking saved on this device
 const latestBooking =
     JSON.parse(localStorage.getItem("latestBooking"));
 
@@ -18,136 +18,189 @@ if (!latestBooking) {
 }
 
 
-// Get all bookings
-const bookings =
-    JSON.parse(localStorage.getItem("hauntedBookings")) || [];
-
-
-// Find the latest version of this booking
-const currentBooking =
-    bookings.find(function(booking) {
-
-        return booking.bookingNumber ===
-            latestBooking.bookingNumber;
-
-    });
-
-
-// Use the latest booking information
-const bookingData =
-    currentBooking || latestBooking;
-
-
 // ================================
-// DISPLAY BOOKING INFORMATION
+// DISPLAY BASIC BOOKING INFORMATION
 // ================================
 
 document.getElementById("bookingNumber").textContent =
-    bookingData.bookingNumber;
-
+    latestBooking.bookingNumber;
 
 document.getElementById("customerName").textContent =
-    bookingData.name;
-
+    latestBooking.name;
 
 document.getElementById("customerPhone").textContent =
-    bookingData.phone;
-
+    latestBooking.phone;
 
 document.getElementById("ticketType").textContent =
-    bookingData.ticketType
+    latestBooking.ticketType
         .replace("-", " ")
         .toUpperCase();
 
-
 document.getElementById("ticketQuantity").textContent =
-    bookingData.quantity;
-
+    latestBooking.quantity;
 
 document.getElementById("ticketAmount").textContent =
     "KSh " +
-    Number(bookingData.amount)
+    Number(latestBooking.amount)
         .toLocaleString("en-KE");
 
-
 document.getElementById("transactionCode").textContent =
-    bookingData.transactionCode;
+    latestBooking.transactionCode;
 
 
 // ================================
-// STATUS
+// ELEMENTS
 // ================================
 
 const statusElement =
     document.getElementById("ticketStatus");
 
-
 const noticeElement =
     document.getElementById("ticketNotice");
 
-
 const qrSection =
     document.getElementById("qrSection");
-
 
 const qrContainer =
     document.getElementById("qrcode");
 
 
-// Display status
-if (statusElement) {
-
-    statusElement.textContent =
-        bookingData.status;
-
-}
-
-
 // ================================
-// CONFIRMED BOOKING
+// DISPLAY TICKET STATUS
 // ================================
 
-if (bookingData.status === "Confirmed") {
+function displayTicketStatus(status) {
 
+    if (statusElement) {
 
-    // Change notice
-    if (noticeElement) {
-
-        noticeElement.innerHTML = `
-
-            <strong>
-                ✅ PAYMENT CONFIRMED
-            </strong>
-
-            <p>
-                Your payment has been verified successfully.
-                Your ticket is confirmed and can be used
-                for entry at Haunted Fest.
-            </p>
-
-        `;
+        statusElement.textContent = status;
 
     }
 
 
-    // Generate QR code
-    if (
-        qrContainer &&
-        typeof QRCode !== "undefined"
+    // ================================
+    // CONFIRMED
+    // ================================
+
+    if (status === "Confirmed") {
+
+        if (noticeElement) {
+
+            noticeElement.innerHTML = `
+
+                <strong>
+                    ✅ PAYMENT CONFIRMED
+                </strong>
+
+                <p>
+                    Your payment has been verified successfully.
+                    Your ticket is confirmed and can be used
+                    for entry at Haunted Fest.
+                </p>
+
+            `;
+
+        }
+
+
+        // Show QR code
+        if (qrSection) {
+
+            qrSection.style.display = "";
+
+        }
+
+
+        // Generate QR code
+        if (
+            qrContainer &&
+            typeof QRCode !== "undefined"
+        ) {
+
+            qrContainer.innerHTML = "";
+
+            new QRCode(qrContainer, {
+
+                text: latestBooking.bookingNumber,
+
+                width: 180,
+
+                height: 180
+
+            });
+
+        }
+
+    }
+
+
+    // ================================
+    // PENDING
+    // ================================
+
+    else if (
+        status === "Pending Verification"
     ) {
 
-        qrContainer.innerHTML = "";
+        if (qrSection) {
+
+            qrSection.style.display = "none";
+
+        }
 
 
-        new QRCode(qrContainer, {
+        if (noticeElement) {
 
-            text: bookingData.bookingNumber,
+            noticeElement.innerHTML = `
 
-            width: 180,
+                <strong>
+                    ⚠️ PAYMENT VERIFICATION
+                </strong>
 
-            height: 180
+                <p>
+                    Your booking is currently pending payment
+                    verification by the event organizer.
+                    This is not yet a confirmed entry ticket.
+                </p>
 
-        });
+            `;
+
+        }
+
+    }
+
+
+    // ================================
+    // REJECTED
+    // ================================
+
+    else if (status === "Rejected") {
+
+        if (qrSection) {
+
+            qrSection.style.display = "none";
+
+        }
+
+
+        if (noticeElement) {
+
+            noticeElement.innerHTML = `
+
+                <strong>
+                    ❌ BOOKING REJECTED
+                </strong>
+
+                <p>
+                    Unfortunately, this booking has been rejected
+                    because the payment could not be verified.
+                    Please contact the event organizer if you
+                    believe this was an error.
+                </p>
+
+            `;
+
+        }
 
     }
 
@@ -155,40 +208,61 @@ if (bookingData.status === "Confirmed") {
 
 
 // ================================
-// PENDING BOOKING
+// GET REAL STATUS FROM SUPABASE
 // ================================
 
-else if (
-    bookingData.status ===
-    "Pending Verification"
-) {
+async function checkBookingStatus() {
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("bookings")
+                .select("status")
+                .eq(
+                    "booking_number",
+                    latestBooking.bookingNumber
+                )
+                .single();
 
 
-    // Hide QR code
-    if (qrSection) {
+        if (error) {
 
-        qrSection.style.display =
-            "none";
+            console.error(
+                "Ticket status error:",
+                error
+            );
+
+            // Fall back to local status
+            displayTicketStatus(
+                latestBooking.status
+            );
+
+            return;
+
+        }
+
+
+        if (data) {
+
+            // Use the REAL status from Supabase
+            displayTicketStatus(data.status);
+
+        }
 
     }
 
+    catch (error) {
 
-    // Pending notice
-    if (noticeElement) {
+        console.error(
+            "Unexpected ticket error:",
+            error
+        );
 
-        noticeElement.innerHTML = `
-
-            <strong>
-                ⚠️ PAYMENT VERIFICATION
-            </strong>
-
-            <p>
-                Your booking is currently pending payment
-                verification by the event organizer.
-                This is not yet a confirmed entry ticket.
-            </p>
-
-        `;
+        // Fall back to local status
+        displayTicketStatus(
+            latestBooking.status
+        );
 
     }
 
@@ -196,41 +270,11 @@ else if (
 
 
 // ================================
-// REJECTED BOOKING
+// START
 // ================================
 
-else if (
-    bookingData.status === "Rejected"
-) {
+displayTicketStatus(
+    latestBooking.status
+);
 
-
-    // Hide QR code
-    if (qrSection) {
-
-        qrSection.style.display =
-            "none";
-
-    }
-
-
-    // Rejected notice
-    if (noticeElement) {
-
-        noticeElement.innerHTML = `
-
-            <strong>
-                ❌ BOOKING REJECTED
-            </strong>
-
-            <p>
-                Unfortunately, this booking has been rejected
-                because the payment could not be verified.
-                Please contact the event organizer if you
-                believe this was an error.
-            </p>
-
-        `;
-
-    }
-
-}
+checkBookingStatus();
