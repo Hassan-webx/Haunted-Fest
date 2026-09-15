@@ -216,14 +216,13 @@ async function checkBookingStatus() {
     try {
 
         const { data, error } =
-            await supabaseClient
-                .from("bookings")
-                .select("status")
-                .eq(
-                    "booking_number",
-                    latestBooking.bookingNumber
-                )
-                .single();
+            await supabaseClient.rpc(
+                "get_booking_status",
+                {
+                    requested_booking_number:
+                        latestBooking.bookingNumber
+                }
+            );
 
 
         if (error) {
@@ -233,7 +232,6 @@ async function checkBookingStatus() {
                 error
             );
 
-            // Fall back to local status
             displayTicketStatus(
                 latestBooking.status
             );
@@ -243,10 +241,12 @@ async function checkBookingStatus() {
         }
 
 
-        if (data) {
+        if (data && data.length > 0) {
 
             // Use the REAL status from Supabase
-            displayTicketStatus(data.status);
+            displayTicketStatus(
+                data[0].status
+            );
 
         }
 
@@ -259,7 +259,6 @@ async function checkBookingStatus() {
             error
         );
 
-        // Fall back to local status
         displayTicketStatus(
             latestBooking.status
         );
